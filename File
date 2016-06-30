@@ -1,4 +1,71 @@
-dsdfsdsd
-Lixao
-Verme
-Bosta
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+typedef struct {
+    char nome[30];
+    int grupo[3];
+    float notasT[3];
+    float notasP[2];
+}aluno;
+float Calculo_NotaT(aluno *alunos, int i, int posicao, int num_trab){
+    int cont;
+    for(cont = 1; cont < posicao; cont ++){
+        alunos[i].notasT[num_trab] *= 0.9;
+    }
+
+}
+int main(){
+    char opcao;
+    int posicao;
+    char turma[30];
+    char link[] = "Turmas\\";
+    int exit = 0, aluno_trabalho, contador_grupo = 0, contador_porcentagens = 0;
+    char grupo = '\0';
+    FILE *file;
+
+    printf("Qual a turma deseja acessar/cadastrar?\n");
+    scanf("%s", turma);
+    strcat(link, turma);
+    strcat(link, ".txt");
+    printf("%s",link);
+    file = fopen(link, "r");
+    if(file == NULL){
+        fclose(file);
+        file = fopen(link, "w");
+        while (exit != 1){
+            printf("\n1 - Cadastro de Alunos(Nome/Prova)\n");
+            printf("2 - Cadastro de Trabalhos.\n");
+            opcao = getch();
+            system("cls");
+            if(opcao == '1'){
+                printf("Quantos alunos deseja cadastrar?\n");
+                int tam;
+                scanf("%d", &tam);
+                int i;
+                aluno alunos[tam];
+                for(i = 0; i < tam ; i++){
+                    printf("Qual o nome do aluno aluno %d?\n", i+1);
+                    scanf("%s", alunos[i].nome);
+                    printf("\nQuanto ele tirou na P1?\n\t");
+                    scanf("%f", &alunos[i].notasP[1]);
+                    printf("\nQuanto ele tirou na P2?\n\t");
+                    scanf("%f", &alunos[i].notasP[2]);
+                    printf("T1: ");
+                    scanf("%f", &alunos[i].notasT[0]);
+                    printf("Posicao do aluno:");
+                    scanf("%d", &posicao);
+                    Calculo_NotaT(alunos, i, posicao, 0);
+                    printf("%f", alunos[i].notasT[0]);
+                    system("pause");
+                    system("cls");
+                }
+
+
+            }
+            if (opcao == '2'){
+
+            }
+       }
+    }
+    return 0;
+    }
